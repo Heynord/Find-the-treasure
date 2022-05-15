@@ -6,6 +6,11 @@ import java.awt.event.KeyListener;
 public class KeyHandler implements KeyListener {
 
     public boolean upPressed, downPressed, leftPressed, rightPressed;
+    GamePanel gp;
+
+    public KeyHandler(GamePanel gp) {
+        this.gp = gp;
+    }
 
     @Override
     public void keyTyped(KeyEvent e) {
@@ -20,6 +25,8 @@ public class KeyHandler implements KeyListener {
             case KeyEvent.VK_A -> leftPressed = true;
             case KeyEvent.VK_S -> downPressed = true;
             case KeyEvent.VK_D -> rightPressed = true;
+            case KeyEvent.VK_UP -> gp.zoomInOut(1);
+            case KeyEvent.VK_DOWN -> gp.zoomInOut(-1);
         }
     }
 
