@@ -29,6 +29,7 @@ public class GamePanel extends JPanel implements Runnable {
     TileManager tileM = new TileManager(this);
     KeyHandler keyH = new KeyHandler(this);
     Thread gameThread;
+    public CollisionChecker cChecker = new CollisionChecker(this);
     public Player player = new Player(this, keyH);
 
     public GamePanel() {
@@ -40,17 +41,13 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void zoomInOut(int i) {
-        int oldWorldWidth = tileSize * maxWorldCol; // 2400
+        int oldWorldWidth = tileSize * maxWorldCol;
         tileSize += i;
-        int newWorldWidth = tileSize * maxWorldCol; // 2350
+        int newWorldWidth = tileSize * maxWorldCol;
 
         player.speed = (double) newWorldWidth / 600;
 
         double multiplier = (double) newWorldWidth / oldWorldWidth;
-
-        System.out.println("tileSize: " + tileSize);
-        System.out.println("worldWidth: " + newWorldWidth);
-        System.out.println("player worldX: " + player.worldX);
 
         double newPlayerWorldX = player.worldX * multiplier;
         double newPlayerWorldY = player.worldY * multiplier;
