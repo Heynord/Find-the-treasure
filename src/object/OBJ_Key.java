@@ -1,7 +1,6 @@
 package object;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
 import java.util.Objects;
 
 public class OBJ_Key extends SuperObject {
