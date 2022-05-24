@@ -28,6 +28,14 @@ public class KeyHandler implements KeyListener {
             case KeyEvent.VK_A -> leftPressed = true;
             case KeyEvent.VK_S -> downPressed = true;
             case KeyEvent.VK_D -> rightPressed = true;
+            case KeyEvent.VK_P -> {
+                if (gp.gameState == gp.playState) {
+                    gp.gameState = gp.pauseState;
+                }
+                else if (gp.gameState == gp.pauseState) {
+                    gp.gameState = gp.playState;
+                }
+            }
 
             // DEBUG
             case KeyEvent.VK_T -> checkDrawTime = !checkDrawTime;
