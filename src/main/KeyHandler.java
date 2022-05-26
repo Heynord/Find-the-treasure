@@ -23,6 +23,30 @@ public class KeyHandler implements KeyListener {
     public void keyPressed(KeyEvent e) {
         int code = e.getKeyCode();
 
+        // TITLE STATE
+        if (gp.gameState == gp.titleState) {
+            switch (code) {
+                case KeyEvent.VK_W, KeyEvent.VK_UP -> {
+                    gp.ui.commandNumber--;
+                    if (gp.ui.commandNumber < 0) {
+                        gp.ui.commandNumber = 1;
+                    }
+                }
+                case KeyEvent.VK_S, KeyEvent.VK_DOWN -> {
+                    gp.ui.commandNumber++;
+                    if (gp.ui.commandNumber > 1) {
+                        gp.ui.commandNumber = 0;
+                    }
+                }
+                case KeyEvent.VK_ENTER -> {
+                    switch (gp.ui.commandNumber) {
+                        case 0 -> gp.gameState = gp.playState;
+                        case 1 -> System.exit(0);
+                    }
+                }
+            }
+        }
+
         // PLAY STATE
         if (gp.gameState == gp.playState) {
             switch (code) {
@@ -31,20 +55,23 @@ public class KeyHandler implements KeyListener {
                 case KeyEvent.VK_S -> downPressed = true;
                 case KeyEvent.VK_D -> rightPressed = true;
                 case KeyEvent.VK_P -> gp.gameState = gp.pauseState;
-                case KeyEvent.VK_ENTER -> enterPressed = true;
+                case KeyEvent.VK_ENTER, KeyEvent.VK_E -> enterPressed = true;
 
                 // DEBUG
                 case KeyEvent.VK_T -> checkDrawTime = !checkDrawTime;
             }
         }
+
         // PAUSE STATE
         else if (gp.gameState == gp.pauseState) {
-            if (code == KeyEvent.VK_P)
+            if (code == KeyEvent.VK_P) {
                 gp.gameState = gp.playState;
+            }
         }
+
         // DIALOGUE STATE
         else if (gp.gameState == gp.dialogueState) {
-            if (code == KeyEvent.VK_ENTER) {
+            if (code == KeyEvent.VK_ENTER || code == KeyEvent.VK_E) {
                 gp.gameState = gp.playState;
             }
         }
