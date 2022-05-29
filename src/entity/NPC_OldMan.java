@@ -9,11 +9,17 @@ public class NPC_OldMan extends Entity {
     public NPC_OldMan(GamePanel gp) {
         super(gp);
 
-        direction = "down";
         speed = 1;
 
         getImage();
         setDialogue();
+
+        solidArea.x = 0;
+        solidArea.y = 16;
+        solidArea.width = 48;
+        solidArea.height = 32;
+        solidAreaDefaultX = solidArea.x;
+        solidAreaDefaultY = solidArea.y;
     }
 
     public void getImage() {

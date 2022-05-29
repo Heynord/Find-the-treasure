@@ -1,6 +1,7 @@
 package main;
 
 import entity.NPC_OldMan;
+import object.OBJ_Door;
 
 public class AssetSetter {
 
