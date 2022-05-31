@@ -15,6 +15,8 @@ public class Player extends Entity {
         super(gp);
         this.keyH = keyH;
 
+        type = "player";
+
         screenX = gp.screenWidth / 2 - (gp.tileSize / 2);
         screenY = gp.screenHeight / 2 - (gp.tileSize / 2);
 
@@ -79,6 +81,10 @@ public class Player extends Entity {
             int npcIndex = gp.cChecker.checkEntity(this, gp.npc);
             interactNPC(npcIndex);
 
+            // CHECK MONSTER COLLISION
+            int monsterIndex = gp.cChecker.checkEntity(this, gp.monsters);
+            contactMonster(monsterIndex);
+
             // CHECK EVENT
             gp.eHandler.checkEvent();
 
@@ -106,6 +112,15 @@ public class Player extends Entity {
                 spriteCounter = 0;
             }
         }
+
+        // This needs to be outside of key statement
+        if (invincible) {
+            invincibleCounter++;
+            if (invincibleCounter > 60) {
+                invincible = false;
+                invincibleCounter = 0;
+            }
+        }
     }
 
     public void pickUpObject(int i) {
@@ -120,6 +135,14 @@ public class Player extends Entity {
                 gp.gameState = gp.dialogueState;
                 gp.npc[i].speak();
             }
+        }
+    }
+
+    public void contactMonster(int i) {
+        if (i != 999) {
+            if (!invincible)
+            life--;
+            invincible = true;
         }
     }
 
@@ -159,6 +182,19 @@ public class Player extends Entity {
                 }
             }
         }
+
+        if (invincible) {
+            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.3f));
+        }
+
         g2.drawImage(image, screenX, screenY, null);
+
+        // Reset Alpha
+        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+
+        // DEBUG
+//        g2.setFont(new Font("Arial", Font.PLAIN, 26));
+//        g2.setColor(Color.WHITE);
+//        g2.drawString("Invincible counter: " + invincibleCounter, 10, 400);
     }
 }
