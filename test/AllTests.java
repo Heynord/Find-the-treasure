@@ -62,8 +62,8 @@ public class AllTests {
 //    public void ImageTest() {
 //        String res = "npc/oldman_down_1.png";
 //        try {
-//            BufferedImage image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/" + res)));
-//            Assertions.assertTrue(ImageGetter.compareImages(image, ImageGetter.getImage(res)));
+//            BufferedImage image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(res)));
+//            Assertions.assertTrue(compareImages(image, getImage(res)));
 //        } catch (IOException e) {
 //            e.printStackTrace();
 //        }
@@ -98,26 +98,26 @@ public class AllTests {
         Assertions.assertEquals(gp.titleState, titleState);
     }
 
-    @Test
-    public void processTest2() {
-        int titleState, playState, pauseState;
-        GamePanel gp = new GamePanel();
-        Component keyH = new Component() {};
-
-
-        gp.startGameThread();
-        titleState = gp.gameState;
-        gp.ui.commandNumber = 0;
-        playState = gp.gameState;
-        KeyEvent key = new KeyEvent (
-                keyH, KeyEvent.KEY_PRESSED, System.currentTimeMillis(), 0,  KeyEvent.VK_P,'p');
-        keyH.getKeyListeners()[0].keyPressed(key);
-        pauseState = gp.gameState;
-
-        Assertions.assertEquals(gp.titleState, titleState);
-        Assertions.assertEquals(gp.playState, playState);
-        Assertions.assertEquals(gp.pauseState, pauseState);
-    }
+//    @Test
+//    public void processTest2() {
+//        int titleState, playState, pauseState;
+//        GamePanel gp = new GamePanel();
+//        Component keyH = new Component() {};
+//
+//
+//        gp.startGameThread();
+//        titleState = gp.gameState;
+//        gp.ui.commandNumber = 0;
+//        playState = gp.gameState;
+//        KeyEvent key = new KeyEvent (
+//                keyH, KeyEvent.KEY_PRESSED, System.currentTimeMillis(), 0,  KeyEvent.VK_P,'p');
+//        keyH.getKeyListeners()[0].keyPressed(key);
+//        pauseState = gp.gameState;
+//
+//        Assertions.assertEquals(gp.titleState, titleState);
+//        Assertions.assertEquals(gp.playState, playState);
+//        Assertions.assertEquals(gp.pauseState, pauseState);
+//    }
 
 //    @Test
 //    public void processTest3() {
@@ -142,18 +142,18 @@ public class AllTests {
 //    @Test
 //    public void IntegratedDamageTest() {
 //        GamePanel gp = new GamePanel();
-//        Entity slime = new MON_GreenSlime(gp);
-//        ArrayList<Entity> entityList = new ArrayList<>();
-//        entityList.add(slime);
+//
 //        Player player = new Player(gp, mock(KeyHandler.class));
-//        player.worldX = 10;
-//        player.worldY = 10;
-//        player.radiusAttack = 10;
-//        slime.worldX = 5;
-//        slime.worldY = 5;
-//        slime.life = 10;
-//        player.damage = 5;
+//        player.worldX = gp.tileSize * 21;
+//        player.worldY = gp.tileSize * 21;
+//        player.attackArea.width = gp.tileSize * 5;
+//        player.attackArea.height = gp.tileSize * 5;
+//        gp.monsters[2] = new MON_GreenSlime(gp);
+//        gp.monsters[2].worldX = gp.tileSize * 21;
+//        gp.monsters[2].worldY = gp.tileSize * 22;
+//
 //        player.attack();
-//        Assertions.assertEquals(5, slime.life);
+//
+//        Assertions.assertEquals(3, gp.monsters[2].life);
 //    }
 }

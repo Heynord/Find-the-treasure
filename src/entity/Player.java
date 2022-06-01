@@ -71,7 +71,7 @@ public class Player extends Entity {
 
     public void update() {
         if (isAttacking) {
-            attacking();
+            attack();
         }
 
         else if (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed || keyH.enterPressed) {
@@ -142,7 +142,7 @@ public class Player extends Entity {
         }
     }
 
-    public void attacking() {
+    public void attack() {
         spriteCounter++;
 
         if (spriteCounter <= 5) {
