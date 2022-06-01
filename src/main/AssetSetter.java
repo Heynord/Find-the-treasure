@@ -11,7 +11,7 @@ public class AssetSetter {
         this.gp = gp;
     }
 
-    public void setObject() {
+    public void setObjects() {
         // TODO
     }
 
@@ -21,7 +21,7 @@ public class AssetSetter {
         gp.npc[0].worldY = gp.tileSize * 21;
     }
 
-    public void setMonster() {
+    public void setMonsters() {
         gp.monsters[0] = new MON_GreenSlime(gp);
         gp.monsters[0].worldX = gp.tileSize * 23;
         gp.monsters[0].worldY = gp.tileSize * 36;
