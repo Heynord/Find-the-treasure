@@ -69,6 +69,7 @@ public class Player extends Entity {
         attackRight2 = setup("/player/boy_attack_right_2", gp.tileSize * 2, gp.tileSize);
     }
 
+    @Override
     public void update() {
         if (isAttacking) {
             attack();
@@ -199,6 +200,7 @@ public class Player extends Entity {
                 gp.npc[i].speak();
             }
             else {
+                gp.playSE(7);
                 isAttacking = true;
             }
         }
@@ -206,25 +208,30 @@ public class Player extends Entity {
 
     public void contactMonster(int i) {
         if (i != 999) {
-            if (!invincible)
-            life--;
-            invincible = true;
+            if (!invincible) {
+                gp.playSE(6);
+                life--;
+                invincible = true;
+            }
         }
     }
 
     public void damageMonster(int i) {
         if (i != 999) {
             if (!gp.monsters[i].invincible) {
+                gp.playSE(5);
                 gp.monsters[i].life--;
                 gp.monsters[i].invincible = true;
+                gp.monsters[i].damageReaction();
 
                 if (gp.monsters[i].life <= 0) {
-                    gp.monsters[i] = null;
+                    gp.monsters[i].dying = true;
                 }
             }
         }
     }
 
+    @Override
     public void draw(Graphics2D g2) {
         BufferedImage image = null;
 

@@ -41,6 +41,7 @@ public class NPC_OldMan extends Entity {
         dialogues[3] = "Well, good luck on you.";
     }
 
+    @Override
     public void setAction() {
         actionLockCounter++;
         if (actionLockCounter == 120) {
@@ -63,6 +64,7 @@ public class NPC_OldMan extends Entity {
         }
     }
 
+    @Override
     public void speak() {
         super.speak();
     }

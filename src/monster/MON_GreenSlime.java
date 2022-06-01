@@ -40,6 +40,7 @@ public class MON_GreenSlime extends Entity {
         right2 = setup("/monsters/greenslime_down_2", gp.tileSize, gp.tileSize);
     }
 
+    @Override
     public void setAction() {
         actionLockCounter++;
         if (actionLockCounter == 120) {
@@ -60,5 +61,11 @@ public class MON_GreenSlime extends Entity {
             }
             actionLockCounter = 0;
         }
+    }
+
+    @Override
+    public void damageReaction() {
+        actionLockCounter = 0;
+        direction = gp.player.direction;
     }
 }
