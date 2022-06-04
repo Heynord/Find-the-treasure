@@ -7,7 +7,7 @@ public class KeyHandler implements KeyListener {
 
     public boolean upPressed, downPressed, leftPressed, rightPressed, enterPressed;
     // DEBUG
-    public boolean checkDrawTime = false;
+    public boolean showDebugText = false;
 
     GamePanel gp;
 
@@ -58,7 +58,7 @@ public class KeyHandler implements KeyListener {
                 case KeyEvent.VK_ENTER, KeyEvent.VK_SPACE -> enterPressed = true;
 
                 // DEBUG
-                case KeyEvent.VK_T -> checkDrawTime = !checkDrawTime;
+                case KeyEvent.VK_T -> showDebugText = !showDebugText;
             }
         }
 
@@ -73,6 +73,40 @@ public class KeyHandler implements KeyListener {
         else if (gp.gameState == gp.dialogueState) {
             if (code == KeyEvent.VK_ENTER || code == KeyEvent.VK_SPACE) {
                 gp.gameState = gp.playState;
+            }
+        }
+
+        // GAME OVER STATE
+        else if (gp.gameState == gp.gameOverState) {
+            gameOverState(code);
+        }
+    }
+
+    public void gameOverState(int code) {
+        switch (code) {
+            case KeyEvent.VK_W, KeyEvent.VK_UP -> {
+                gp.ui.commandNumber--;
+                if (gp.ui.commandNumber < 0) {
+                    gp.ui.commandNumber = 1;
+                }
+            }
+            case KeyEvent.VK_S, KeyEvent.VK_DOWN -> {
+                gp.ui.commandNumber++;
+                if (gp.ui.commandNumber > 1) {
+                    gp.ui.commandNumber = 0;
+                }
+            }
+            case KeyEvent.VK_ENTER -> {
+                switch (gp.ui.commandNumber) {
+                    case 0 -> {
+                        gp.gameState = gp.playState;
+                        gp.retry();
+                    }
+                    case 1 -> {
+                        gp.gameState = gp.titleState;
+                        gp.restart();
+                    }
+                }
             }
         }
     }

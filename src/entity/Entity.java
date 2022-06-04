@@ -15,7 +15,7 @@ public abstract class Entity {
 
     public BufferedImage up1, up2, down1, down2, left1, left2, right1, right2;
     public BufferedImage attackUp1, attackUp2, attackDown1, attackDown2,
-            attackLeft1, attackLeft2, attackRight1, attackRight2;
+           attackLeft1, attackLeft2, attackRight1, attackRight2;
     public BufferedImage image, image2, image3;
     public Rectangle solidArea = new Rectangle(0, 0, 48, 48);
     public Rectangle attackArea = new Rectangle(0, 0, 0, 0);
@@ -179,7 +179,7 @@ public abstract class Entity {
                 dyingAnimation(g2);
             }
 
-            g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
+            g2.drawImage(image, screenX, screenY, null);
 
             changeAlpha(g2, 1f);
         }

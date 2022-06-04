@@ -10,6 +10,7 @@ public class Player extends Entity {
 
     KeyHandler keyH;
     public final int screenX, screenY;
+    public boolean attackCancelled = false;
 
     public Player(GamePanel gp, KeyHandler keyH) {
         super(gp);
@@ -45,6 +46,18 @@ public class Player extends Entity {
         // PLAYER STATUS
         maxLife = 6;
         life = maxLife;
+        invincible = false;
+    }
+
+    public void setDefaultPositions() {
+        worldX = gp.tileSize * 23;
+        worldY = gp.tileSize * 21;
+        direction = "down";
+    }
+
+    public void restoreLife() {
+        life = maxLife;
+        invincible = false;
     }
 
     public void getPlayerImage() {
@@ -118,6 +131,13 @@ public class Player extends Entity {
                 }
             }
 
+            if (keyH.enterPressed && !attackCancelled) {
+                gp.playSE(7);
+                isAttacking = true;
+                spriteCounter = 0;
+            }
+
+            attackCancelled = false;
             gp.keyH.enterPressed = false;
 
             spriteCounter++;
@@ -140,6 +160,11 @@ public class Player extends Entity {
                 invincible = false;
                 invincibleCounter = 0;
             }
+        }
+
+        if (life <= 0) {
+            gp.gameState = gp.gameOverState;
+            gp.playSE(8);
         }
     }
 
@@ -196,12 +221,9 @@ public class Player extends Entity {
     public void interactNPC(int i) {
         if (gp.keyH.enterPressed) {
             if (i != 999) {
+                attackCancelled = true;
                 gp.gameState = gp.dialogueState;
                 gp.npc[i].speak();
-            }
-            else {
-                gp.playSE(7);
-                isAttacking = true;
             }
         }
     }
