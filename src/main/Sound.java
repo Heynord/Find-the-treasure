@@ -9,6 +9,7 @@ public class Sound {
 
     Clip clip;
     URL[] soundURL = new URL[30];
+    int frames = 0;
 
     public Sound() {
         soundURL[0] = getClass().getResource("/sounds/BlueBoyAdventure.wav");
